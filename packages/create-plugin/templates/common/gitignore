@@ -33,3 +33,9 @@ e2e-results/
 .idea
 
 .eslintcache
+
+# Playwright  
+/playwright-report/
+/playwright/.cache/
+storageState.json
+/test-results/

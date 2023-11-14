@@ -1,8 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+
 import { PluginType } from '@grafana/data';
+
+import { testIds } from '../testIds';
+
 import { AppConfig, AppConfigProps } from './AppConfig';
-import { testIds } from 'components/testIds';
 
 describe('Components/AppConfig', () => {
   let props: AppConfigProps;

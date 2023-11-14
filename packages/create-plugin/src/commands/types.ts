@@ -8,6 +8,8 @@ export type CliArgs = {
   hasBackend: boolean;
   hasGithubWorkflows: boolean;
   hasGithubLevitateWorkflow: boolean;
+  hasGithubDatabaseWorkflow: boolean;
+  hasGithubDatabaseTemplates: boolean;
 };
 
 export type TemplateData = {

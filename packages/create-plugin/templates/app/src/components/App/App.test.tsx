@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { AppRootProps, PluginType } from '@grafana/data';
 import { render, screen } from '@testing-library/react';
+
+import { AppRootProps, PluginType } from '@grafana/data';
+
 import { App } from './App';
 
 describe('Components/App', () => {

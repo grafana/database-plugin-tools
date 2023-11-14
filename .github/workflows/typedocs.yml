@@ -1,9 +1,9 @@
 name: Run commands when issues or PRs are labeled
 on:
   issues:
-    types: [ labeled ]
+    types: [labeled]
   pull_request:
-    types: [ labeled ]
+    types: [labeled]
 jobs:
   main:
     if: ${{ github.event.pull_request == false || github.event.pull_request.head.repo.full_name == github.repository }}

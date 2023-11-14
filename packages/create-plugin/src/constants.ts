@@ -26,6 +26,8 @@ export const TEMPLATE_PATHS: Record<string, string> = {
   panel: path.join(TEMPLATES_DIR, 'panel'),
   ciWorkflows: path.join(TEMPLATES_DIR, 'github', 'ci'),
   isCompatibleWorkflow: path.join(TEMPLATES_DIR, 'github', 'is-compatible'),
+  databaseWorkflows: path.join(TEMPLATES_DIR, 'github', 'database-workflows'),
+  databaseTemplates: path.join(TEMPLATES_DIR, 'github', 'issues'),
 };
 
 export enum PLUGIN_TYPES {

@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useState } from 'react';
-import { lastValueFrom } from 'rxjs';
 import { css } from '@emotion/css';
+import { lastValueFrom } from 'rxjs';
+
 import { AppPluginMeta, GrafanaTheme2, PluginConfigPageProps, PluginMeta } from '@grafana/data';
 import { getBackendSrv } from '@grafana/runtime';
 import { Button, Field, FieldSet, Input, SecretInput, useStyles2 } from '@grafana/ui';
+
 import { testIds } from '../testIds';
 
 export type AppPluginSettings = {

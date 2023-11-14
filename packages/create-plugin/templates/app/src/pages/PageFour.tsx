@@ -1,11 +1,13 @@
 import React from 'react';
 import { css } from '@emotion/css';
+
 import { GrafanaTheme2, PageLayoutType } from '@grafana/data';
+import { PluginPage } from '@grafana/runtime';
 import { LinkButton, useStyles2 } from '@grafana/ui';
+
+import { testIds } from '../components/testIds';
 import { ROUTES } from '../constants';
 import { prefixRoute } from '../utils/utils.routing';
-import { testIds } from '../components/testIds';
-import { PluginPage } from '@grafana/runtime';
 
 export function PageFour() {
   const s = useStyles2(getStyles);

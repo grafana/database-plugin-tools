@@ -19,6 +19,8 @@ async function generate() {
       hasBackend: false,
       hasGithubWorkflows: true,
       hasGithubLevitateWorkflow: true,
+      hasGithubDatabaseWorkflow: true,
+      hasGithubDatabaseTemplates: true,
     },
     {
       onFailure: console.error,

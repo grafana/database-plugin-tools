@@ -1,12 +1,14 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { css } from '@emotion/css';
-import { useParams, Link } from 'react-router-dom';
+
 import { GrafanaTheme2 } from '@grafana/data';
-import { useStyles2 } from '@grafana/ui';
-import { prefixRoute } from '../utils/utils.routing';
-import { ROUTES } from '../constants';
-import { testIds } from '../components/testIds';
 import { PluginPage } from '@grafana/runtime';
+import { useStyles2 } from '@grafana/ui';
+
+import { testIds } from '../components/testIds';
+import { ROUTES } from '../constants';
+import { prefixRoute } from '../utils/utils.routing';
 
 export function PageThree() {
   const s = useStyles2(getStyles);

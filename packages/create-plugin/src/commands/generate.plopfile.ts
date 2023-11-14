@@ -79,6 +79,18 @@ export default function (plop: NodePlopAPI) {
         message: 'Do you want to add a Github workflow for automatically checking "Grafana API compatibility" on PRs?',
         default: false,
       },
+      {
+        name: 'hasGithubDatabaseWorkflow',
+        type: 'confirm',
+        message: 'Do you want to add database Github workflows?',
+        default: false,
+      },
+      {
+        name: 'hasGithubDatabaseTemplates',
+        type: 'confirm',
+        message: 'Do you want to add database Github templates?',
+        default: false,
+      },
     ],
     actions: function ({
       pluginName,
@@ -87,6 +99,8 @@ export default function (plop: NodePlopAPI) {
       hasBackend,
       hasGithubWorkflows,
       hasGithubLevitateWorkflow,
+      hasGithubDatabaseWorkflow,
+      hasGithubDatabaseTemplates,
     }: CliArgs) {
       const { features } = getConfig();
       const currentVersion = getVersion();
@@ -157,6 +171,24 @@ export default function (plop: NodePlopAPI) {
           })
         : [];
 
+      // Copy over Database Github workflow
+      const ciDatabaseWorkflowActions = hasGithubDatabaseWorkflow
+        ? getActionsForTemplateFolder({
+            folderPath: TEMPLATE_PATHS.databaseWorkflows,
+            exportPath,
+            templateData,
+          })
+        : [];
+
+      // Copy over Database Github templates
+      const ciDatabaseTemplatesActions = hasGithubDatabaseTemplates
+        ? getActionsForTemplateFolder({
+            folderPath: TEMPLATE_PATHS.databaseTemplates,
+            exportPath,
+            templateData,
+          })
+        : [];
+
       // Replace conditional bits in the Readme files
       const readmeActions = getActionsForReadme({ exportPath, templateData });
 
@@ -165,6 +197,8 @@ export default function (plop: NodePlopAPI) {
         ...ciWorkflowActions,
         ...readmeActions,
         ...isCompatibleWorkflowActions,
+        ...ciDatabaseWorkflowActions,
+        ...ciDatabaseTemplatesActions,
         {
           type: 'updateGoSdkAndModules',
         },

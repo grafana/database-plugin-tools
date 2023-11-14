@@ -18,6 +18,8 @@ async function generate() {
       pluginType: 'panel',
       hasGithubWorkflows: true,
       hasGithubLevitateWorkflow: true,
+      hasGithubDatabaseWorkflow: true,
+      hasGithubDatabaseTemplates: true,
     },
     {
       onFailure: console.error,

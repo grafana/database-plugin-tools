@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore: # Don't run the workflow if only .github/** or docs/** files have been changed
+      - '.github/**'
+      - 'docs/**'
+  pull_request:
+    paths-ignore: # Don't run the workflow if only .github/** or docs/** files have been changed
+      - '.github/**'
+      - '!.github/workflows/ci.yml'
+      - 'docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.actor != 'databases-frontend-ci-bot[bot]'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/hydrogen
+
+      - name: Restore {{ packageManagerName }} cache
+        id: restore-{{ packageManagerName }}-cache
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            node_modules
+          key: $\{{ runner.os }}-npm-$\{{ hashFiles('**/package-lock.json', '!node_modules/**/package-lock.json') }}
+          restore-keys: $\{{ runner.os }}-npm-
+
+      - name: Install dependencies on cache miss
+        run: {{ packageManagerInstallCmd }}
+        if: steps.restore-npm-cache.outputs.cache-hit != 'true'
+
+      - name: Save npm cache
+        id: save-npm-cache
+        if: steps.restore-npm-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            node_modules
+          key: $\{{ steps.restore-npm-cache.outputs.cache-primary-key }}
+
+      - name: Check types
+        run: {{ packageManagerName }} run typecheck
+
+      - name: Lint
+        run: {{ packageManagerName }} run lint
+
+      - name: Unit tests
+        run: {{ packageManagerName }} run test:ci
+
+      - name: Build frontend
+        run: {{ packageManagerName }} run build
+
+      - name: Start grafana docker
+        run: {{ packageManagerName }} run e2e:server
+
+      - name: Run e2e tests
+        run: {{ packageManagerName }} run e2e:ci
+
+      - name: Stop grafana docker
+        run: {{ packageManagerName }} run e2e:server:down
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-output
+          path: dist
+
+  compatibilitycheck:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.actor != 'databases-frontend-ci-bot[bot]'
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: lts/hydrogen
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: dist
+
+      - name: Compatibility check
+        run: npx @grafana/levitate@latest is-compatible --path src/module.ts --target @grafana/data,@grafana/ui,@grafana/runtime

@@ -1,7 +1,7 @@
 version: '3.0'
 
 services:
-  grafana:
+  grafana: &grafana
     container_name: '{{ pluginId }}'
     platform: "linux/amd64"
     build:
@@ -14,3 +14,12 @@ services:
     volumes:
       - ./dist:/var/lib/grafana/plugins/{{ pluginId }}
       - ./provisioning:/etc/grafana/provisioning
+
+  e2e:
+    <<: *grafana
+    profiles:
+      - e2e
+    volumes:
+      - ./src/test/msw:/usr/share/grafana/public/msw
+      - ./dist:/var/lib/grafana/plugins/{{ pluginId }}
+      - ./e2e/provisioning:/etc/grafana/provisioning

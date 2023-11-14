@@ -1,6 +1,8 @@
 import React from 'react';
-import { testIds } from '../components/testIds';
+
 import { PluginPage } from '@grafana/runtime';
+
+import { testIds } from '../components/testIds';
 
 export function PageTwo() {
   return (
