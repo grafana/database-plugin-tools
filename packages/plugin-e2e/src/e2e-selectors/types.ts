@@ -6,7 +6,8 @@ export type E2ESelectors = {
 
 export type APIs = {
   DataSource: {
-    getResource: string;
+    resource: string;
+    healthCheck: string;
   };
 };
 
