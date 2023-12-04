@@ -1,17 +1,16 @@
 {
-  "name": "@grafana/create-plugin",
-  "version": "2.6.0",
+  "name": "@grafana-cloud/database-create-plugin",
+  "version": "1.0.0",
   "main": "index.js",
   "repository": {
     "directory": "packages/create-plugin",
-    "url": "https://github.com/grafana/plugin-tools"
+    "url": "https://github.com/grafana/database-plugin-tools"
   },
   "author": "Grafana",
   "license": "Apache-2.0",
   "bin": "./dist/bin/run.js",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
+    "registry": "https://us-npm.pkg.dev/grafanalabs-dev/cloud-npm-dev"
   },
   "scripts": {
     "clean": "rm -rf ./dist ./generated",
