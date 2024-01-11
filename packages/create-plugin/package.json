@@ -1,6 +1,6 @@
 {
   "name": "@grafana-cloud/database-create-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": {
     "directory": "packages/create-plugin",
@@ -30,7 +30,8 @@
     "lint": "eslint --cache --ext .js,.jsx,.ts,.tsx ./src",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "publish": "npx google-artifactregistry-auth && npm publish"
   },
   "dependencies": {
     "@types/minimist": "^1.2.2",
@@ -40,12 +41,14 @@
     "enquirer": "^2.3.6",
     "find-up": "^5.0.0",
     "glob": "^7.1.7",
+    "lerna": "^8.0.0",
     "marked": "^10.0.0",
     "marked-terminal": "^5.1.1",
     "mkdirp": "^1.0.4",
     "plop": "^2.7.4",
     "semver": "^7.3.5",
-    "which": "^3.0.0"
+    "which": "^3.0.0",
+    "@grafana-cloud/access-policies": "2.0.1"
   },
   "devDependencies": {
     "@types/glob": "^7.0.0",
