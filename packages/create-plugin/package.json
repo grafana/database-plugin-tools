@@ -1,6 +1,6 @@
 {
   "name": "@grafana-cloud/database-create-plugin",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "repository": {
     "directory": "packages/create-plugin",
     "url": "https://github.com/grafana/plugin-tools"
